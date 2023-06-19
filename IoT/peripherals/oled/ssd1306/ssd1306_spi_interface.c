@@ -5,14 +5,14 @@
  * @date        	06/18/2022
  * @brief       	this is for the user to implement their own master side code
  *******************************************************
- *For 7-pin ssd1306 oled
- *GND						          ------>GND
- *VCC						          ------>3.3V - 5V
- *clock in 				        ------>D0
- *data in and response out	------>D1
- *reset					          ------>RES
- *data or command			    ------>DC
- *chip select				      ------>CS
+ *For 7-pin oled
+ *GND ------>GND
+ *VCC ------>3.3V - 5V
+ *clock in ------>D0
+ *data in and response out ------>D1
+ *reset ------>RES
+ *data or command ------>DC
+ *chip select ------>CS
  ********************************************************/
 
 #include <ssd1306_spi_interface.h>

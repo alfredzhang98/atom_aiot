@@ -6,13 +6,13 @@
  * @brief       	the driver of the ssd1306 oled
  *******************************************************
  *For 7-pin oled
- *GND						------>GND
- *VCC						------>3.3V - 5V
- *clock in 				    ------>D0
- *data in and response out	------>D1
- *reset					    ------>RES
- *data or command			------>DC
- *chip select				------>CS
+ *GND ------>GND
+ *VCC ------>3.3V - 5V
+ *clock in ------>D0
+ *data in and response out ------>D1
+ *reset ------>RES
+ *data or command ------>DC
+ *chip select ------>CS
  ********************************************************/
 
 #include <oled_font_picture.h>
