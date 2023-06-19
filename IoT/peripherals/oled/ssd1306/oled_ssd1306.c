@@ -15,10 +15,6 @@
  *chip select				------>CS
  ********************************************************/
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include <ssd1306_spi_interface.h>
 #include <oled_ssd1306.h>
 
 #define INIT_DATA 27

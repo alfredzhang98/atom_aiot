@@ -15,8 +15,7 @@
   *chip select				      ------>CS
 ********************************************************/
 
-#include <stdio.h>
-#include <string.h>
+#include <ssd1306_spi_interface.h>
 
 void delay_us(unsigned char num);
 void delay_ms(unsigned int ms);
