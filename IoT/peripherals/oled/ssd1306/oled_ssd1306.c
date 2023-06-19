@@ -15,13 +15,46 @@
  *chip select				------>CS
  ********************************************************/
 
-#include <oled_ssd1306.h>
 #include <oled_font_picture.h>
+#include <oled_ssd1306.h>
 
-#define INIT_DATA 27
-#define SCROLL_DATA 9
+#define INIT_WAY2
+
+#define SCROLL_DATA 10
 #define DISPLAY_DATA 6
 
+#ifdef INIT_WAY1
+#define INIT_DATA 25
+static uint8_t oled_init_data[INIT_DATA] = {
+    0xAE,
+    0x00,
+    0x10,
+    0x40,
+    0xB0,
+    0x81,
+    0xFF,
+    0xA1,
+    0xA6,
+    0xA8,
+    0x3F,
+    0xC8,
+    0xD3,
+    0x00,
+    0xD5,
+    0x80,
+    0xD9,
+    0xF1,
+    0xDA,
+    0x12,
+    0xDB,
+    0x40,
+    0x8D,
+    0x14,
+    0xAF};
+#endif
+
+#ifdef INIT_WAY2
+#define INIT_DATA 28
 static u_int8_t oled_init_data[INIT_DATA] = {
     0xAE, // turn off oled panel
     0x00, // set low column address
@@ -49,10 +82,11 @@ static u_int8_t oled_init_data[INIT_DATA] = {
     0x8D, // set Charge Pump enable/disable
     0x14, // set(0x10) disable
     0xA4, // disable Entire Display On (0xa4/0xa5)
-    0xA6  // disable Inverse Display On (0xa6/a7)
-};
+    0xA6, // disable Inverse Display On (0xa6/a7)
+    0xAF};
+#endif
 
-static u_int8_t oled_scroll_data[SCROLL_DATA] = {
+static uint8_t oled_scroll_data[SCROLL_DATA] = {
     0x2E,
     0x27,
     0x00,
@@ -64,7 +98,7 @@ static u_int8_t oled_scroll_data[SCROLL_DATA] = {
     0xFF,
     0x2F};
 
-static u_int8_t oled_display_data[DISPLAY_DATA] = {
+static uint8_t oled_display_data[DISPLAY_DATA] = {
     0x8D,
     0x14,
     0xAF,
@@ -74,9 +108,8 @@ static u_int8_t oled_display_data[DISPLAY_DATA] = {
 };
 
 //*******************************function***************************************
-
 /**
- * @brief write one date
+ * @brief write byte spi
  */
 void oledWriteByte(unsigned char dat, unsigned char cmd)
 {
@@ -95,8 +128,26 @@ void oledWriteByte(unsigned char dat, unsigned char cmd)
  */
 void oledClear(void)
 {
-    unsigned char i, j;
+    uint8_t i, j;
     for (i = 0; i < 8; i++)
+    {
+        oledWriteByte(0xb0 + i, OLED_CMD);
+        oledWriteByte(0x00, OLED_CMD);
+        oledWriteByte(0x10, OLED_CMD);
+        for (j = 0; j < 128; j++)
+        {
+            oledWriteByte(0, OLED_DATA);
+        }
+    }
+}
+
+/**
+ * @brief clean the screen lines
+ */
+void oledClearLines(unsigned char lineStart, unsigned char lineEnd)
+{
+    uint8_t i, j;
+    for (i = lineStart; i < lineEnd; i++)
     {
         oledWriteByte(0xb0 + i, OLED_CMD);
         oledWriteByte(0x00, OLED_CMD);
@@ -114,8 +165,8 @@ void oledClear(void)
 void oledSetPostion(unsigned char x, unsigned char y)
 {
     oledWriteByte(0xb0 + y, OLED_CMD);
-    oledWriteByte((x & 0x0f), OLED_CMD);
     oledWriteByte(((x & 0xf0) >> 4) | 0x10, OLED_CMD);
+    oledWriteByte((x & 0x0f) | 0x01, OLED_CMD);
 }
 
 /**
@@ -155,7 +206,7 @@ void oledDisplayTurn(bool status)
  */
 void oledScroll(void)
 {
-    u_int8_t i;
+    uint8_t i;
     for (i = 0; i < SCROLL_DATA; i++)
     {
         oledWriteByte(oled_scroll_data[i], OLED_CMD);
@@ -167,19 +218,19 @@ void oledScroll(void)
  */
 void oledDisplayStatus(bool status)
 {
-    u_int8_t i;
+    uint8_t i;
     // on
     if (status == true)
     {
-        for (i = 0; i < SCROLL_DATA / 2; i++)
+        for (i = 0; i < DISPLAY_DATA / 2; i++)
         {
             oledWriteByte(oled_display_data[i], OLED_CMD);
         }
-        // off
     }
+    // off
     else if (status == false)
     {
-        for (i = 3; i < SCROLL_DATA / 2; i++)
+        for (i = 3; i < DISPLAY_DATA; i++)
         {
             oledWriteByte(oled_display_data[i], OLED_CMD);
         }
@@ -191,15 +242,14 @@ void oledDisplayStatus(bool status)
  */
 void oledSSD1603Init(void)
 {
-    u_int8_t i;
+    uint8_t i;
     oledSpiReset();
     for (i = 0; i < INIT_DATA; i++)
     {
         oledWriteByte(oled_init_data[i], OLED_CMD);
     }
     oledClear();
-    oledWriteByte(0xAF, OLED_CMD);
-    oledSetPostion(0, 0);
+    // oledSetPostion(0, 0);
 }
 
 /**
@@ -209,8 +259,9 @@ void oledSSD1603Setup(void)
 {
     oledSpiInit();
     oledSSD1603Init();
+    oledDisplayTurn(false);
     oledColorTurn(false);
-    oledDisplayStatus(false);
+    oledDisplayStatus(true);
 }
 
 //*******************************draw***************************************
@@ -237,10 +288,20 @@ void oledShowChar(unsigned char x, unsigned char y, const unsigned char chr, uns
             temp = asc2_0806[c][i];
             oledWriteByte(temp, OLED_DATA); // 6X8 size
         }
+        else if (sizey == 12)
+        {
+            temp = asc2_1206[c][i];
+            oledWriteByte(temp, OLED_DATA); // 6x12 size
+        }
         else if (sizey == 16)
         {
             temp = asc2_1608[c][i];
             oledWriteByte(temp, OLED_DATA); // 8x16 size
+        }
+        else if (sizey == 32)
+        {
+            temp = asc2_2412[c][i];
+            oledWriteByte(temp, OLED_DATA); // 12x24 size
         }
         else
             return;
@@ -322,24 +383,35 @@ void oledDrawDiagram(unsigned char x, unsigned char y, unsigned char sizex, unsi
 /**
  * @brief a loop show test
  */
-void oledLoopTest(void)
+void oledTest(void)
 {
-    int i = 0;
+    int i, j;
+    char show_time[60] = {0};
 
     oledDrawDiagram(0, 0, 128, 64, image_test);
     delay_ms(2000);
     oledClear();
 
-    oledShowString(0, 0, "Alfred", 16);
-
-    while(true)
+    oledShowString(45, 0, "Alfred", 8);
+    i = 0;
+    j = 0;
+    while (true)
     {
-        char show[20] = {0};
+        sprintf(show_time, "%d : %d", j, i);
 
-        sprintf(show, "%d", i);
-        oledShowString(50, 4, show, 16);
-
-        delay_ms(1000);
+        oledShowString(45, 4, show_time, 16);
         i++;
+        if (i == 60)
+        {
+            i = 0;
+            j++;
+            oledClearLines(3, 8);
+        }
+        if (j == 60)
+        {
+            j = 0;
+            oledClearLines(3, 8);
+        }
+        delay_ms(1000);
     }
 }

@@ -1,7 +1,8 @@
 #include <oled_ssd1306.h>
 
-void main(){
-    printf("Hello world!\n");
+void main(void)
+{
+    printf("SSD1306 test!\n");
 	oledSSD1603Setup();
-	oledLoopTest();
+	oledTest();
 }
