@@ -332,14 +332,14 @@ void oledLoopTest(void)
 
     oledShowString(0, 0, "Alfred", 16);
 
-    for (;;)
+    while(true)
     {
         char show[20] = {0};
 
         sprintf(show, "%d", i);
         oledShowString(50, 4, show, 16);
 
-        delay_ms(2000);
+        delay_ms(1000);
         i++;
     }
 }
