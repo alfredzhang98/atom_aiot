@@ -16,6 +16,7 @@
  ********************************************************/
 
 #include <oled_ssd1306.h>
+#include <oled_font_picture.h>
 
 #define INIT_DATA 27
 #define SCROLL_DATA 9

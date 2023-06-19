@@ -1,7 +1,6 @@
 #ifndef __OLED_SSD1306__H
 #define __OLED_SSD1306__H	
 
-#include <oled_font_picture.h>
 #include <ssd1306_spi_interface.h>
 
 #define SIZE 		    16	
