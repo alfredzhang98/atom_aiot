@@ -4,9 +4,6 @@
 #include <oled_font_picture.h>
 #include <ssd1306_spi_interface.h>
 
-#define OLED_CMD  0
-#define OLED_DATA 1	
-
 #define SIZE 		    16	
 #define Max_Column	128		
 #define Max_Row		  64		

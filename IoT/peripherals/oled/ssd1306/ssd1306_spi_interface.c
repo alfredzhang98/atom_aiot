@@ -17,16 +17,18 @@
 
 #include <ssd1306_spi_interface.h>
 
-void delay_us(unsigned char num);
-void delay_ms(unsigned int ms);
-
-void oledSpiInit(void){
-    //TODO: SPI initial
-
+void delay_ms(unsigned int ms)
+{
+	//TODO: delay ms function in your board
 
 }
 
-void oledWriteByte(unsigned char dat,unsigned char cmd){
+void writeByteCMD(unsigned char dat){
+    //TODO: spi write bytes function in your board
+
+}
+
+void writeByteDATA(unsigned char dat){
     //TODO: spi write bytes function in your board
 
 }
@@ -34,24 +36,16 @@ void oledWriteByte(unsigned char dat,unsigned char cmd){
 void oledSpiReset(void)
 {
 	//TODO: Set the reset gpio level (high(100ms)-low(200ms)-high(200ms))
+  //set gpio low
   
   delay_ms(100);
+  //set gpio high
 
-  delay_ms(200);
-
-  delay_ms(200);
-  
+  delay_ms(100);
 }
 
 
-void delay_us(unsigned char num)
-{
-	//TODO: delay us function in your board
-
-}
-
-void delay_ms(unsigned int ms)
-{
-	//TODO: delay ms function in your board
+void oledSpiInit(void){
+    //TODO: SPI initial
 
 }

@@ -73,9 +73,25 @@ static u_int8_t oled_display_data[DISPLAY_DATA] = {
 };
 
 //*******************************function***************************************
+
+/**
+ * @brief write one date
+ */
+void oledWriteByte(unsigned char dat, unsigned char cmd)
+{
+    if (cmd == OLED_DATA)
+    {
+        writeByteDATA(dat);
+    }
+    else if (cmd == OLED_CMD)
+    {
+        writeByteCMD(dat);
+    }
+}
+
 /**
  * @brief clean the screen
-*/
+ */
 void oledClear(void)
 {
     unsigned char i, j;
@@ -93,7 +109,7 @@ void oledClear(void)
 
 /**
  * @brief set the pixel position on the OLED
-*/
+ */
 void oledSetPostion(unsigned char x, unsigned char y)
 {
     oledWriteByte(0xb0 + y, OLED_CMD);
@@ -110,7 +126,7 @@ void oledColorTurn(bool status)
     {
         oledWriteByte(0xA6, OLED_CMD); // normal
     }
-    else if (status = true)
+    else if (status == true)
     {
         oledWriteByte(0xA7, OLED_CMD); // reverse
     }
@@ -187,13 +203,13 @@ void oledSSD1603Init(void)
 
 /**
  * @brief the set up for all (spi and oled)
-*/
+ */
 void oledSSD1603Setup(void)
 {
     oledSpiInit();
     oledSSD1603Init();
-    OLED_ColorTurn(false);
-    OLED_DisplayTurn(false);
+    oledColorTurn(false);
+    oledDisplayStatus(false);
 }
 
 //*******************************draw***************************************
@@ -317,13 +333,10 @@ void oledLoopTest(void)
 
     for (;;)
     {
-        char show[8] = {0};
-
-        sprintf(show, "%d%%", i);
-        oledShowString(50, 4, show, 16);
+        char show[20] = {0};
 
         sprintf(show, "%d", i);
-        OLED_ShowString(50, 6, show, 16);
+        oledShowString(50, 4, show, 16);
 
         delay_ms(2000);
         i++;
