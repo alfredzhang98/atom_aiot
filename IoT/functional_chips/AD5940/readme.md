@@ -1,17 +1,26 @@
 # AD9450
 
-Created: June 13, 2023 12:46 PM
-Status: In progress
+Guide
 
-AD5940_Delay10us(450);
+https://wiki.analog.com/resources/eval/user-guides/ad5940
+
+
+
+Problem：
+
+**AD5940_Delay10us(450);**
 
 This would take 450 * 10 us * 56 times = 0.252s
+
+
 
 we should avoid this blocking code
 
 Solution:
 
 1. Clearly understand the SPI interaction process
+
+
 
 As the measurement of the current time: 0.4s
 The real working time: 0.148s
@@ -22,11 +31,17 @@ Solutions:
 1. Using **Buffer** to store the data (avoid data loss)
 2. Using the **DMA** to send it (Non-blocking/non-time-consuming)
 
+
+
 Testing plans are also important:
 
 1. Time-consuming analysis
 
+
+
 Challenge: No development board to debug, need to come up with as many solutions as possible, and test plans.
+
+
 
 The flow chart
 
@@ -34,7 +49,7 @@ The flow chart
 
 ## SPI
 
-finish the interface at firstdelayMicroseconds
+finish the interface：
 
 [How to port AD594x Firmware Examples to other Micro controller Families [Analog Devices Wiki]](https://wiki.analog.com/resources/eval/user-guides/eval-ad5940/tools/porting_source_code)
 
@@ -45,7 +60,7 @@ Setting consideration
 AD5940BIAStructInit();
 
 ```c
-Default：
+//Default：
 
 AppBIACfg_Type *pBIACfg;
 
@@ -60,7 +75,8 @@ pBIACfg->BiaODR = 20;         /* ODR(Sample Rate) 20Hz */  //origin: 1000
 pBIACfg->FifoThresh = 4;      /* 4 */
 pBIACfg->ADCSinc3Osr = ADCSINC3OSR_2;
 
-Improve:
+//Improve:
+//This part need some test to clearly understand each parameters function
 
 AppBIACfg_Type *pBIACfg;
 
@@ -70,17 +86,24 @@ pBIACfg->SeqStartAddr = 0;
 pBIACfg->MaxSeqLen = 512; 
 pBIACfg->RcalVal = 10000.0;
 pBIACfg->DftNum = DFTNUM_1024;
-pBIACfg->NumOfData = -1;      /* Never stop until you stop it manually by AppBIACtrl() function */
-pBIACfg->BiaODR = 20;         /* ODR(Sample Rate) 20Hz */  //origin: 1000
-pBIACfg->FifoThresh = 4;      /* 4 */
+//pBIACfg->NumOfData = -1;      /* Never stop until you stop it manually by AppBIACtrl() function */
+pBIACfg->NumOfData = 1;		    // stop after one data
+pBIACfg->BiaODR = 20;           /* ODR(Sample Rate) 20Hz */  //origin: 1000
+pBIACfg->FifoThresh = 4;        /* 4 */
 pBIACfg->ADCSinc3Osr = ADCSINC3OSR_2;
 ```
 
 ## DMA
 
-This part is Arduino development environment:
+This part is the Arduino development environment:
 
-Data transfer is a easy way but for UART it is conflict to the Arduino settings.
+
+
+The serial rate should be some normal rate like **115200, 230400**  (should be multiples of three )
+
+
+
+Data transfer is an easy way but for UART it is conflict with the Arduino settings.
 
 ```c
 #include <stdio.h>
@@ -104,7 +127,7 @@ void setup() {
         channel0,      
         &config0,          
         recv,         
-	        send,           //set as the uart_hw->dr
+	    send,           //set as the uart_hw->dr
         count_of(send), 
         true           
     );

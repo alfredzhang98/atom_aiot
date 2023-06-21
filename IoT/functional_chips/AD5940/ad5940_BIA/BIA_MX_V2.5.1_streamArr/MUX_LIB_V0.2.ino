@@ -23,23 +23,40 @@ void MUX_setup() {
 
 
 
+// void handle_mux(){
+//   uint8_t ADG_PIN_NUMBER;
+//   for (uint8_t i = 0; i < 4; i++) {
+//     if (0 < dataNumber[i] && dataNumber[i] <= 16) {
+//       ADG_PIN_NUMBER = 16 + dataNumber[i];
+//     } 
+//     else if (16 < dataNumber[i] && dataNumber[i] <= 32) {
+//       ADG_PIN_NUMBER = 33 - dataNumber[i];
+//     } 
+//     else {
+//       ADG_PIN_NUMBER = 0;
+//     }
+//     MUX_WR_ENABLE(&i);
+//     control_Digital(&ADG_PIN_NUMBER);  
+//     MUX_WR_DISABLE(&i);
+//   }
+// }
+
 void handle_mux(){
-  uint8_t ADG_PIN_NUMBER;
+  uint8_t adg_pin_number;
   for (uint8_t i = 0; i < 4; i++) {
     if (0 < dataNumber[i] && dataNumber[i] <= 16) {
-      ADG_PIN_NUMBER = 16 + dataNumber[i];
+      adg_pin_number = 16 + dataNumber[i];
     } 
     else if (16 < dataNumber[i] && dataNumber[i] <= 32) {
-      ADG_PIN_NUMBER = 33 - dataNumber[i];
+      adg_pin_number = 33 - dataNumber[i];
     } 
     else {
-      ADG_PIN_NUMBER = 0;
+      adg_pin_number = 0;
     }
     MUX_WR_ENABLE(&i);
-    control_Digital(&ADG_PIN_NUMBER);  
+    control_Digital(&adg_pin_number);  
     MUX_WR_DISABLE(&i);
   }
-
 }
 
 

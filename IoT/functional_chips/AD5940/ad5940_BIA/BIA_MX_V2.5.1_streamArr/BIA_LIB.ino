@@ -217,7 +217,7 @@ void AD5940BIAStructInit(void)
   // pBIACfg->NumOfData = -1;      /* Never stop until you stop it manually by AppBIACtrl() function */
   pBIACfg->NumOfData = 1;
   //NOD = 5;                     /*注意这里把上面的Number of data 抄下来。main里要用*/
-  pBIACfg->BiaODR = 1024;         /* ODR(Sample Rate) 20Hz */
+  pBIACfg->BiaODR = 20;         /* ODR(Sample Rate) 20Hz */
   //pBIACfg->BiaODR = 2048;
   pBIACfg->FifoThresh = 4;      /* 4 */
   pBIACfg->ADCSinc3Osr = ADCSINC3OSR_2;
