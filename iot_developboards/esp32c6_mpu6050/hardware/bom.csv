@@ -1,0 +1,41 @@
+,Name,Description,Designator,Part Number,Price,Qty
+,10uF/25V(20%),贴片电容/MLCC电容,"C1, C2, C5, C8, C10, C11",,,6
+,0.1uF/50V(10%),贴片电容/MLCC电容,"C3, C4, C9, C13, C14, C17",,,6
+,12pF,贴片电容/MLCC电容,"C6, C7",,,2
+,1uF/6V(10%),贴片电容/MLCC电容,C12,,,1
+,2.2nF/50V,贴片电容/MLCC电容,C15,,,1
+,0.01uF/4V,贴片电容/MLCC电容,C16,,,1
+,0.1uF/2v/104,贴片电容/MLCC电容,C18,,,1
+,1N5819HW-7-F,Diode,"D1, D3",,,2
+,LESD5D5.0CT1G,TVS Diode (Bi-directional),D2,,,1
+,BAT54C,两路肖特基二极管,D4,,,1
+,100uF,贴片钽电容,E1,,,1
+,0.1uF/4v/104,贴片钽电容,E2,,,1
+,ESP32-C6-MINI-1,Hardware,H1,,,1
+,AP2112K-3.3TRG1,Integrated Circuit,IC1,,,1
+,MCP73831T-2ACI_OT,Integrated Circuit,IC2,,,1
+,MPU6050,Integrated Circuit,IC3,,,1
+,HDR-1X2,2P接插件,"JP1, JP7",,,2
+,HDR-1X2,2P接插件,"JP2, JP4, JP5, JP6, JP11",,,5
+,Header2X2,2*2P接插件,"JP3, JP10",,,2
+,CON-6P,6P连接器,JP8,,,1
+,HDR-1X6,6P接插件,JP9,,,1
+,RED,贴片LED,LED1,,,1
+,Green,贴片LED,LED3,,,1
+,WPM2341A-3_TR,Transistor,"Q1, Q2",,,2
+,PMBT3904,Transistor BJT NPN,Q3,,,1
+,10k,贴片电阻,"R1, R7, R9, R11, R14, R15",,,6
+,5.1K(1%),贴片电阻,"R2, R3",,,2
+,3.3k,贴片电阻,"R4, R10",,,2
+,10M,贴片电阻,R5,,,1
+,4.7k,贴片电阻,R8,,,1
+,33k,贴片电阻,R12,,,1
+,100,贴片电阻,R13,,,1
+,100k,贴片电阻,R16,,,1
+,0,贴片电阻,"R17, R21",,,2
+,4.7K,贴片电阻,"R18, R19, R20",,,3
+,3.3k,电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:62.5mW;,R22,,,1
+,6x6x5,TS-1002S-05026C 贴片6x6轻触开关,"SW1, SW3",,,2
+,3x6x5,3x6轻触开关,"SW2, SW4",,,2
+,USB_TYPE-C_6Pin,USB_TYPE-C_6Pin母座,USB1,,,1
+,32.768kHz RSR = Max. 70K,2脚无源晶振(谐振器）,X1,,,1
