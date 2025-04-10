@@ -1,0 +1,41 @@
+Name,Designator,Part Number,Price,Qty
+10uF/25V(20%),"C1, C2, C5, C8, C10, C11",,,6
+0.1uF/50V(10%),"C3, C4, C9, C13, C14, C17",,,6
+12pF,"C6, C7",,,2
+1uF/6V(10%),C12,,,1
+2.2nF/50V,C15,,,1
+0.01uF/4V,C16,,,1
+0.1uF/2v/104,C18,,,1
+1N5819HW-7-F,"D1, D3",,,2
+LESD5D5.0CT1G,D2,,,1
+BAT54C,D4,,,1
+100uF,,,1,
+0.1uF/4v/104,,,1,
+ESP32-C6-MINI-1,H1,,,1
+AP2112K-3.3TRG1,IC1,,,1
+MCP73831T-2ACI_OT,IC2,,,1
+MPU6050,IC3,,,1
+HDR-1X2," JP7""",,,2
+HDR-1X2, JP4, JP5, JP6," JP11"""
+Header2X2," JP10""",,,2
+CON-6P,,,1,
+HDR-1X6,,,1,
+RED,LED1,,,1
+Green,LED3,,,1
+WPM2341A-3_TR,"Q1, Q2",,,2
+PMBT3904,Q3,,,1
+10k,"R1, R7, R9, R11, R14, R15",,,6
+5.1K(1%),"R2, R3",,,2
+3.3k,"R4, R10",,,2
+10M,R5,,,1
+4.7k,R8,,,1
+33k,R12,,,1
+100,R13,,,1
+100k,R16,,,1
+0,"R17, R21",,,2
+4.7K,"R18, R19, R20",,,3
+3.3k,R22,,,1
+6x6x5," SW3""",,,2
+3x6x5," SW4""",,,2
+USB_TYPE-C_6Pin,USB1,,,1
+32.768kHz RSR = Max. 70K,X1,,,1
