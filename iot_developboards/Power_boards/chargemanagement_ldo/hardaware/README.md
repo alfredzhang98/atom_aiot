@@ -2,6 +2,9 @@
 
 This board is designed for efficient **battery charging** and **dual regulated voltage output**.
 
+LOG:
+V1.0 - TypeC and battery hub are in the same side with three holes for fixed the board
+V2.0 - Change the battery hub to the other side and add a hole for fixing the board more stable
 ---
 
 ## 🔋 Charge Management
@@ -59,8 +62,14 @@ This board is designed for efficient **battery charging** and **dual regulated v
 
 
 # Board view
-![top_board](image/top.png)
 
+## V1.0
+![top_board](image/topv1.png)
 
-![bottom_board](image/bottom.png)
+![bottom_board](image/bottomv1.png)
+
+## V2.0
+![top_board](image/topv2.png)
+
+![bottom_board](image/bottomv2.png)
 
