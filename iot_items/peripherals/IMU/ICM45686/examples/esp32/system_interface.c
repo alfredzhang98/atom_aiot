@@ -77,7 +77,7 @@ int si_io_imu_init(inv_imu_serif_type_t serif_type)
         .sclk_io_num = IMU_SCLK,
         .quadwp_io_num = -1,
         .quadhd_io_num = -1,
-        .max_transfer_sz = 64
+        .max_transfer_sz = 1024
     };
     ESP_ERROR_CHECK(spi_bus_initialize(HSPI_HOST, &buscfg, SPI_DMA_CH_AUTO));
 
